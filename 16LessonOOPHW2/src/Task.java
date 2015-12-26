@@ -7,7 +7,15 @@ public class Task {
 		return this.name;
 	}
 	
+	public Task(String name, double workingHours) {
+		setName(name);
+		setWorkingHours(workingHours);
+	}
+	
 	public void setName(String name) {
+		if (name == null || name.isEmpty()) {
+			throw new IllegalArgumentException("Task name can not be null or empty!");
+		}
 		this.name = name;
 	}
 	
@@ -16,21 +24,9 @@ public class Task {
 	}
 	
 	public void setWorkingHours(double workingHours) {
+		if (workingHours < 0) { // 0 in case the task is already finished
+			throw new IllegalArgumentException("Working hours can not be negative!");
+		}
 		this.workingHours = workingHours;
-	}
-	
-	public Task(String name, double workingHours) {
-		if (name.isEmpty()) {
-			throw new IllegalArgumentException("Task's name can not be empty!");
-		}
-		else {
-			this.name = name;
-		}
-		if (workingHours <= 0) {
-			throw new IllegalArgumentException("Working hours can not be negative or = 0!");
-		}
-		else {
-			this.workingHours = workingHours;
-		}
 	}
 }
