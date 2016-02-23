@@ -12,7 +12,7 @@ public class Demo {
 		store.receiveNewInstrument("Udarni", "marimba", 5);
 		store.receiveNewInstrument("Elektronni", "elektricheska kitara", 35);
 		
-//		store.receiveNewInstrument("Udarni", "marimba", 2);
+		store.receiveNewInstrument("Udarni", "marimba", 2);
 		
 		store.getInstrumentByName("daire").setQuantity(0);
 		store.getInstrumentByName("akordeon").setQuantity(0);
@@ -20,10 +20,7 @@ public class Demo {
 		
 		Supplier supplier = new Supplier(store);
 		
-		Thread storeThread = new Thread(store);
-		storeThread.start();
-		
-		for (int i = 1; i <= 500; i++) {
+		for (int i = 1; i <= 5; i++) {
 			store.sellInstrument("trompet", 10);
 		}
 		
@@ -31,12 +28,15 @@ public class Demo {
 		store.sellInstrument("marimba", 10);
 		store.sellInstrument("elektricheska kitara", 15);
 		
-		
+		store.sellInstrument("asdasd", 4);
 		
 		store.printSoldInstruments();
 		store.printProfit();
 		store.printMostSoldInstrument();
 		store.printLeastSoldInstrument();
+		
+		Thread storeThread = new Thread(store);
+		storeThread.start();
 		
 //		store.printInstrumentsAlphabetically();
 //		store.printInstrumentsOrderedByPrice("asc");

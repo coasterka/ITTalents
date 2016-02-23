@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
@@ -19,6 +20,8 @@ public class Store implements IStore {
 
 	private double money;
 	private Map<String, TreeSet<MusicInstrument>> productsCatalog;
+	
+	private int allProductsCount;
 
 	private TreeMap<Integer, MusicInstrument> soldInstruments;
 	private double profit;
@@ -31,15 +34,41 @@ public class Store implements IStore {
 		profit = 0;
 	}
 
+	private void setRandomProductQuantityToZero() throws MusicStoreException {
+		
+		ArrayList<MusicInstrument> allInstruments = new ArrayList<MusicInstrument>();
+		
+		for (Entry<String, TreeSet<MusicInstrument>> entry : productsCatalog.entrySet()) {
+			for (MusicInstrument musicInstrument : entry.getValue()) {
+				allInstruments.add(musicInstrument);
+			}
+		}
+		
+		int randomInstrumentIndex = (int) (Math.random() * allProductsCount);
+		
+		MusicInstrument randomInstrument = allInstruments.get(randomInstrumentIndex);
+		randomInstrument.setQuantity(0);
+	}
+	
 	@Override
 	public void run() {
 		while (true) {
-			// sleep for 15 sec (month)
+			// sleep for 2 sec (month)
 			try {
-				Thread.sleep(1500);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			int randomUnavailableProductsQuantity = (int) (Math.random() * allProductsCount);
+			try {
+				for (int i = 1; i < randomUnavailableProductsQuantity; i++) {
+					setRandomProductQuantityToZero();
+				}
+				
+			} catch (MusicStoreException e) {
+				e.printStackTrace();
+			}
+			
 			System.err.println("---Montly delivery of products---");
 
 			for (Entry<String, TreeSet<MusicInstrument>> entry : this.productsCatalog.entrySet()) {
@@ -47,7 +76,7 @@ public class Store implements IStore {
 					if (instrument.getQuantity() == 0) {
 						try {
 							instrument.setQuantity(NUMBER_OF_DELIVERED_INSTRUMENTS);
-							System.err.println(
+							System.out.println(
 									"Delivered " + NUMBER_OF_DELIVERED_INSTRUMENTS + " of " + instrument.getName());
 						} catch (MusicStoreException e) {
 							e.printStackTrace();
@@ -87,9 +116,11 @@ public class Store implements IStore {
 				break;
 			}
 		}
-		// throw error if the instrument is not in the product catalog
+		// throw error if the desired instrument is not in the product catalog
 		if (currentInstrument == null) {
-			throw new NonExistingArgumentException("This instrument is not in the store products catalog!");
+//			throw new NonExistingArgumentException("This instrument is not in the store products catalog!");
+			System.out.println("\"" + nameOfInstrument + "\" is not in the store products catalog");
+			return;
 		}
 		if (currentInstrument.getQuantity() <= 0 || currentInstrument.getQuantity() < quantity) {
 			// uncomment in case you want to throw an exception instead of
@@ -331,9 +362,11 @@ public class Store implements IStore {
 
 		for (TreeSet<MusicInstrument> musicInstrumentList : this.productsCatalog.values()) {
 			for (MusicInstrument musicInstrument : musicInstrumentList) {
+				allProductsCount++;
 				musicInstrument.setQuantity((int) (Math.random() * MAX_STORE_PRODUCT_QUANTITY));
 			}
 		}
+
 	}
 
 	public double getMoney() {
@@ -346,4 +379,5 @@ public class Store implements IStore {
 		}
 		this.supplier = supplier;
 	}
+
 }
