@@ -14,6 +14,10 @@ public class Demo {
 		
 //		store.receiveNewInstrument("Udarni", "marimba", 2);
 		
+		store.getInstrumentByName("daire").setQuantity(0);
+		store.getInstrumentByName("akordeon").setQuantity(0);
+		store.getInstrumentByName("tuba").setQuantity(0);
+		
 		Supplier supplier = new Supplier(store);
 		
 		Thread storeThread = new Thread(store);
@@ -27,9 +31,7 @@ public class Demo {
 		store.sellInstrument("marimba", 10);
 		store.sellInstrument("elektricheska kitara", 15);
 		
-		store.getInstrumentByName("daire").setQuantity(0);
-		store.getInstrumentByName("akordeon").setQuantity(0);
-		store.getInstrumentByName("tuba").setQuantity(0);
+		
 		
 		store.printSoldInstruments();
 		store.printProfit();

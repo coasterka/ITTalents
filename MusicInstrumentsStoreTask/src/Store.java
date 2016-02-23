@@ -55,21 +55,6 @@ public class Store implements IStore {
 					}
 				}
 			}
-
-			// for (TreeSet<MusicInstrument> instrumentsList :
-			// this.productsCatalog.values()) {
-			// for (MusicInstrument musicInstrument : instrumentsList) {
-			// if (musicInstrument.getQuantity() == 0) {
-			// try {
-			// musicInstrument.setQuantity(NUMBER_OF_DELIVERED_INSTRUMENTS);
-			// System.err.println("Delivered " + NUMBER_OF_DELIVERED_INSTRUMENTS
-			// + " of " + musicInstrument.getName());
-			// } catch (MusicStoreException e) {
-			// e.printStackTrace();
-			// }
-			// }
-			// }
-			// }
 		}
 	}
 
