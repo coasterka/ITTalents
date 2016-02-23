@@ -1,6 +1,6 @@
 import exceptions.MusicStoreException;
 
-public class MusicInstrument implements Comparable {
+public class MusicInstrument implements Comparable<MusicInstrument> {
 	
 	private String name;
 	private double price;
@@ -47,7 +47,7 @@ public class MusicInstrument implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object instrument) {
+	public int compareTo(MusicInstrument instrument) {
 		return this.name.compareTo(((MusicInstrument) instrument).name);
 	}
 	
