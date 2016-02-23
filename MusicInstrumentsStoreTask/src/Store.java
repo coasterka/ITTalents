@@ -334,7 +334,6 @@ public class Store implements IStore {
 				musicInstrument.setQuantity((int) (Math.random() * MAX_STORE_PRODUCT_QUANTITY));
 			}
 		}
-
 	}
 
 	public double getMoney() {
@@ -347,5 +346,4 @@ public class Store implements IStore {
 		}
 		this.supplier = supplier;
 	}
-
 }
